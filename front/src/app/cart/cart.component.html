@@ -1,0 +1,116 @@
+<div class="cart">
+  <div class="cart-float-right" *ngIf="cart.length">
+    <div class="cart-float-right-content">
+      <div class="cart-float-right-top">
+        <span>Total : </span>
+        <span>{{ getTotalPrice() }} €</span>
+      </div>
+      <div class="cart-float-right-bottom">
+        <button mat-raised-button color="accent" (click)="checkout()">Commander</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-content darkModeAuto">
+    <!-- Cart header -->
+    <div class="cart-header">
+      <h3 class="text-center">Votre panier</h3>
+    </div>
+
+    <!-- Cart body -->
+    <div class="cart-body">
+      <div class="cart-item" *ngFor="let cartProduct of cart">
+        <div class="cart-item-header">
+          <div class="cart-item-header-left">
+            <img [src]="cartProduct.product.imageLink"
+              (error)="cartProduct.product.imageLink='assets/images/tasse.jpg'" alt="Café" />
+          </div>
+
+          <div class="cart-item-header-center">
+            <div class="cart-item-header-center-top">
+              <h4>{{ cartProduct.product.name }}</h4>
+              <h5>{{ cartProduct.product.category.label }}</h5>
+            </div>
+            <!-- <div class="cart-item-header-right-bottom">
+              <span>Prix unitaire : </span>
+              <span>{{ cartProduct.product.price }} €</span>
+            </div> -->
+          </div>
+
+          <div class="cart-item-header-center-left">
+            <!-- <h4>Marque : </h4> -->
+            <h4>{{ cartProduct.product.brand }}</h4>
+          </div>
+
+          <div class="cart-item-header-center-right">
+            <h4>{{ cartProduct.product.description }}</h4>
+          </div>
+        </div>
+
+        <div class="cart-item-body">
+          <!-- Body left -->
+          <div class="cart-item-body-left">
+            <div class="cart-item-body-left-top">
+              <span>Quantité : </span>
+              <!-- <input matInput type="number" value="1" #quantityToAdd> -->
+            </div>
+
+            <div class="cart-item-body-left-bottom">
+              <!-- Left button -->
+              <button mat-icon-button (click)="removeProductQuantity(cartProduct)">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+
+              <!-- Middle input quantity -->
+              <input type="number" [value]="cartProduct.quantity"
+                (change)="onChangeProductQuantity($event, cartProduct)" #quantityToAdd />
+
+              <!-- Right button -->
+              <button mat-icon-button (click)="addProductQuantity(cartProduct)">
+                <mat-icon>add_circle</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="cart-item-body-right-middle">
+            <!-- <span>Total : </span> -->
+
+            <!-- Quantity x Price without refund -->
+            <div class="cart-item-body-right-middle-price-refund" *ngIf="cartProduct.product.refund">
+              <h5>{{ cartProduct.quantity }} x {{ cartProduct.product.price }} €</h5>
+            </div>
+
+            <div>
+              <!-- Normal price -->
+              <!-- <h5 *ngIf="!cartProduct.product.refund">{{ cartProduct.quantity }} x {{ cartProduct.product.price }} €</h5> -->
+              <!-- Refund price -->
+              <!-- <h5 *ngIf="cartProduct.product.refund">{{ cartProduct.quantity }} x {{ getRefundPrice(cartProduct.product) }} €</h5> -->
+              <h5>{{ cartProduct.quantity }} x {{ getRefundPrice(cartProduct.product) }} €</h5>
+            </div>
+
+            <div>
+              <!-- Normal price -->
+              <!-- <h4 *ngIf="!cartProduct.product.refund">{{ cartProduct.product.price * parseNumber(quantityToAdd.value) }} €</h4> -->
+              <!-- Refund price -->
+              <!-- <h4 *ngIf="cartProduct.product.refund">{{ getRefundPrice(cartProduct.product) * parseNumber(quantityToAdd.value) }} €</h4> -->
+              <h4>{{ getRefundPrice(cartProduct.product) * parseNumber(quantityToAdd.value) }} €</h4>
+            </div>
+          </div>
+
+          <!-- Body right -->
+          <div class="cart-item-body-right">
+            <button mat-icon-button (click)="removeProductFromCart(cartProduct)">
+              <mat-icon>delete_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cart-empty" *ngIf="!cart.length">
+        <p>Ohh 😓 ton panier est vide</p>
+      </div>
+    </div>
+  </div>
+
+</div>

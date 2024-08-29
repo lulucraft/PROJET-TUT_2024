@@ -1,0 +1,37 @@
+<div class="sidebar-left darkModeAuto" @fadeIn>
+  <ul class="sidebar-item">
+    <!-- Image compte -->
+    <li>
+      <!-- <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Smashicons - Flaticon</a> -->
+      <button mat-button *ngIf="!isAuthenticated()" (click)="login()"><img src="assets/images/user.svg" width="24"><span style="vertical-align: bottom !important;">Connexion</span></button>
+      <button mat-button *ngIf="isAuthenticated()" (click)="account()"><img src="assets/images/user.svg" width="24">{{ getUserName() }}</button>
+    </li>
+
+    <!-- Newsletter -->
+    <!-- <li>
+      <button mat-button (click)="newsletter()"><mat-icon>newspaper</mat-icon> Newsletter</button>
+    </li> -->
+
+    <!-- USER Mes commandes -->
+    <li *ngIf="isAuthenticated()">
+      <button mat-button (click)="orders()"><mat-icon>event_note</mat-icon> Mes commandes</button>
+    </li>
+
+    <!-- ADMIN Commandes -->
+    <li *ngIf="isAuthenticated()">
+      <button mat-button *ngIf="isAdmin()" (click)="adminOrders()"><mat-icon>event_note</mat-icon> Commandes</button>
+    </li>
+
+    <!-- ADMIN Produits -->
+    <li *ngIf="isAuthenticated() && isAdmin()">
+      <button mat-button (click)="products()"><mat-icon>shopping_cart</mat-icon> Produits</button>
+    </li>
+
+    <!-- Déconnexion -->
+    <li *ngIf="isAuthenticated()">
+      <button mat-button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Déconnexion</button>
+    </li>
+  </ul>
+</div>
+
+<div class="sidebar-close-background"></div>

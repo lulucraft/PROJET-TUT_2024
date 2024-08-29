@@ -1,0 +1,93 @@
+<div class="shop">
+
+  <div class="shop-content">
+    <!-- Shop header -->
+    <div class="shop-header">
+      <h3 class="text-center">Notre sélection de cafés</h3>
+    </div>
+
+    <!-- Shop search -->
+    <div class="shop-search">
+      <div class="form-item-group">
+        <h4>Filtres : </h4>
+
+        <!-- Nom produit -->
+        <mat-form-field>
+          <input matInput type="text" class="shop-search-input" placeholder="Nom café"
+            [(ngModel)]="filterProductName" (keyup)="onFilter()">
+        </mat-form-field>
+
+        <!-- En promotion -->
+        <mat-form-field>
+          <mat-label>En promotion</mat-label>
+          <mat-select placeholder="En promotion" [(ngModel)]="filterRefund" (selectionChange)="onFilter()">
+            <mat-option value="all">-</mat-option>
+            <mat-option value="refund">Oui</mat-option>
+            <mat-option value="norefund">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Prix min -->
+        <mat-form-field>
+          <input matInput type="number" class="shop-search-input" placeholder="Prix min" [(ngModel)]="filterPriceMin"
+            (keyup)="onFilter()" (change)="onFilter()">
+        </mat-form-field>
+
+        <!-- Prix max -->
+        <mat-form-field>
+          <input matInput type="number" class="shop-search-input" placeholder="Prix max" [(ngModel)]="filterPriceMax"
+            (keyup)="onFilter()" (change)="onFilter()">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Shop body -->
+    <div class="shop-body">
+
+      <mat-card class="shop-card" *ngFor="let product of filteredProducts">
+        <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+          <mat-card-subtitle>{{ product.category.label }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <img mat-card-image [src]="product.imageLink"
+          (error)="product.imageLink='assets/images/tasse.jpg'" alt="Café">
+
+        <mat-card-content>
+          <p>{{ product.brand }}</p>
+
+          <div *ngIf="product.refund" [style]="{'margin-right' : (product.refund ? '25px' : null)}">
+            <div class="shop-price-left">
+              <span class="shop-price-refund">-{{ product.refund }} %</span>
+            </div>
+
+            <div class="shop-price-right">
+              <span class="shop-price-left">{{ product.price }} €</span>
+              <span class="shop-price-right">{{ product.price - (product.price * product.refund / 100) }} €</span>
+            </div>
+          </div>
+
+          <p *ngIf="!product.refund">
+            <span class="shop-price-right">{{ product.price }} €</span>
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <input matInput type="number" value="1" min="1" max="10000" (change)="onChangeProductQuantity($event)"
+            #quantityToAdd>
+          <button mat-raised-button color="warn" (click)="addToCart(product, quantityToAdd.value)">Ajouter au
+            panier</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+    <!-- Shop footer -->
+    <div class="shop-footer">
+      <!-- Paginator -->
+      <mat-paginator class="shop-pagination" (page)="handlePage($event)" [length]="length" [pageSize]="pageSize"
+        [pageIndex]="pageIndex" [pageSizeOptions]="[8, 16]" #paginator showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

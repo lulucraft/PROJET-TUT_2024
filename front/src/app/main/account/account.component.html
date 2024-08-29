@@ -1,0 +1,79 @@
+<div id="center" class="text-center">
+  <div class="form frame darkModeAuto">
+    <h3>Votre compte</h3>
+
+    <!-- Nom d'utilisateur -->
+    <p>
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput type="text" [value]="user.username" readonly />
+      </mat-form-field>
+    </p>
+
+    <!-- Date création compte -->
+    <p>
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Date création compte</mat-label>
+        <input matInput type="text" [value]="user.creationDate ? (user.creationDate | date: 'dd/MM/YYYY HH:mm:ss' : 'GMT') : 'Aucune'" readonly />
+      </mat-form-field>
+    </p>
+
+    <!-- Rôles -->
+    <p>
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Rôles</mat-label>
+        <input matInput type="text" [value]="getRoles()" readonly />
+      </mat-form-field>
+    </p>
+
+    <!-- Email -->
+    <p>
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" [value]="user.email ? user.email : 'Aucun'" readonly />
+      </mat-form-field>
+    </p>
+
+    <p class="form-item-group">
+      <!-- Nom -->
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" [value]="user.lastname ? user.lastname : 'Aucun'" readonly />
+      </mat-form-field>
+
+      <!-- Prénom -->
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Prénom</mat-label>
+        <input matInput type="text" [value]="user.firstname ? user.firstname : 'Aucun'" readonly />
+      </mat-form-field>
+    </p>
+
+    <p class="form-item-group">
+      <!-- Adresse -->
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Adresse</mat-label>
+        <input matInput type="text" [value]="user.address ? user.address : 'Aucune'" readonly />
+      </mat-form-field>
+
+      <!-- Code postal -->
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Code postal</mat-label>
+        <input matInput type="text" [value]="user.postalCode ? user.postalCode : 'Aucun'" readonly />
+      </mat-form-field>
+
+      <!-- Ville -->
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Ville</mat-label>
+        <input matInput type="text" [value]="user.city ? user.city : 'Aucune'" readonly />
+      </mat-form-field>
+    </p>
+
+    <!-- Pays -->
+    <p>
+      <mat-form-field appearance="legacy" [floatLabel]="'always'">
+        <mat-label>Pays</mat-label>
+        <input matInput type="text" [value]="user.country ? user.country : 'Aucun'" readonly />
+      </mat-form-field>
+    </p>
+  </div>
+</div>

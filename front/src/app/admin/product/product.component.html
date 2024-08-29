@@ -1,0 +1,100 @@
+<div class="product">
+  <div class="product-content darkModeAuto">
+    <!-- Product header -->
+    <div class="product-header">
+      <h3>Produit</h3>
+    </div>
+
+    <!-- Product body -->
+    <div class="product-body">
+      <form [formGroup]="formGroup" (ngSubmit)="sendProduct()">
+        <p>
+          <!-- Product name -->
+          <mat-form-field appearance="fill">
+            <mat-label>Nom</mat-label>
+            <input matInput type="text" formControlName="nameCtrl" placeholder="Nom" maxlength="150" required>
+          </mat-form-field>
+        </p>
+
+        <p>
+          <!-- Product description -->
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Description</mat-label>
+            <textarea matInput type="text" formControlName="descriptionCtrl" placeholder="Description"
+              required></textarea>
+          </mat-form-field>
+        </p>
+
+        <p class="form-item-group">
+          <!-- Product brand -->
+          <mat-form-field appearance="fill">
+            <mat-label>Marque</mat-label>
+            <input matInput type="text" formControlName="brandCtrl" placeholder="Marque" required>
+          </mat-form-field>
+
+          <!-- Product category -->
+          <mat-form-field appearance="fill">
+            <mat-label>Catégorie</mat-label>
+            <mat-select formControlName="sizeCtrl" placeholder="Catégorie" required>
+              <mat-option *ngFor="let category of sizes" [value]="category.id">
+                {{ category.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Add product category -->
+          <span>
+            <mat-form-field style="max-width: 111px">
+              <input matInput type="text" placeholder="Ajouter catégorie" required #sizeinput>
+            </mat-form-field>
+            <button mat-icon-button type="button" (click)="addSize(sizeinput.value)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </span>
+        </p>
+
+        <p class="form-item-group">
+          <!-- Product image link -->
+          <mat-form-field appearance="fill">
+            <mat-label>Lien image produit</mat-label>
+            <input matInput type="text" formControlName="imageLinkCtrl" placeholder="Lien image" required>
+          </mat-form-field>
+
+          <!-- Product image file -->
+          <!-- <mat-form-field appearance="fill">
+            <mat-label>Importer image</mat-label>
+            <input matInput formControlName="imageFileCtrl" placeholder="Importer image">
+          </mat-form-field> -->
+        </p>
+
+        <p class="form-item-group">
+          <!-- Product price -->
+          <mat-form-field appearance="fill">
+            <mat-label>Prix</mat-label>
+            <input matInput type="number" formControlName="priceCtrl" placeholder="Prix" min="0" max="10000" required>
+          </mat-form-field>
+
+          <!-- Product refund -->
+          <mat-form-field appearance="fill">
+            <mat-label>Remise (en %)</mat-label>
+            <input matInput type="number" formControlName="refundCtrl" placeholder="Remise">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <!-- Product quantity -->
+          <mat-form-field appearance="fill">
+            <mat-label>Quantité en stock</mat-label>
+            <input matInput type="number" formControlName="quantityCtrl" placeholder="Quantité" min="0" max="1000000"
+              required>
+          </mat-form-field>
+        </p>
+
+        <div class="form-item-group">
+          <button mat-stroked-button (click)="back()">Retour</button>
+          <button mat-stroked-button *ngIf="productId > -1" (click)="deleteProduct()">Supprimer le produit</button>
+          <button mat-flat-button type="submit" color="accent">{{ productId == -1 ? 'Ajouter le produit' : 'Valider les modifications' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
